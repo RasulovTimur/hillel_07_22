@@ -8,7 +8,7 @@ class Car:
         self.price = price
 
     def show_car(self):
-        print(f"Car(model={self.model},\nyear={self.year},\nbrand={self.brand},\nvolume={self.volume},\ncolor={self.color},\nprice={self.price})")
+        print(f"Car(\n model={self.model},\n year={self.year},\n brand={self.brand},\n volume={self.volume},\n color={self.color},\n price={self.price})")
 
 car_1 = Car(
     model="Corolla",
