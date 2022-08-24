@@ -1,19 +1,32 @@
 class UnexpectedTypeException(Exception):
-    pass
+    def __init__(self, message):
+        self.message = message
+        super().__init__(message)
+
+message = "Was expecting types: str, int"
 
 
+def expected(expecting_types):
+    def decorator(func):
+        def wrapper_validate(*args, **kwargs):
+            func_type = type(func(*args, **kwargs))
 
-def expected(func):
-    def inner(text):
-        if isinstance(text,str):
-            print(f"{text}")
-        else:
-            raise UnexpectedTypeException("Was expecting types: str")
-        return func
-    return inner
+            if func_type in expecting_types:
+                return func
 
-@expected
-def func():
-    pass
+            else:
 
-func(None)
+                raise UnexpectedTypeException(message)
+
+
+        return wrapper_validate
+
+    return decorator
+
+
+@expected(expecting_types=(str, int))
+def func(value):
+    print(value)
+    return value
+
+func(True)
